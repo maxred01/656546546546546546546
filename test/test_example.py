@@ -12,9 +12,8 @@ def test_last_created_issue_should_be_on_the_server(api_request_context: APIRequ
 
 
 def test_run(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
-    context.tracing.start(screenshots=True, snapshots=True, sources=True)
 
     page = context.new_page()
     page.goto("https://hoster.by/")
@@ -29,7 +28,6 @@ def test_run(playwright: Playwright) -> None:
     page.locator("#domain_by").click()
     page.locator("#domain_of_by").click()
     page.locator("[id=\"domain_бел\"]").click()
-    context.tracing.stop(path="trace.zip")
 
     # ---------------------
     context.close()
